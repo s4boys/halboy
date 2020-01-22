@@ -17,7 +17,7 @@ def get(r, sub, query):
 	i = 0;
 	for submission in r.subreddit(sub).search(query):
 		if i == rand_index:
-			buffer = "www.reddit.com" + submission.permalink
+			buffer = submission.url
 			break
 		else:
 			i += 1
@@ -35,7 +35,7 @@ def hello():
 	sub = request.args.get("sub", "earthporn")
 	query = request.args.get("query", "France")
 	result = bot(sub, query) 
-	return f'{escape(result)}!'
+	return f'{escape(result)}'
 
 
 if __name__ == "__main__":
