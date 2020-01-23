@@ -15,20 +15,20 @@ def get(r, sub, query, sorter, timeframe):
     buffer = ""
     rand_index = randrange(25)
     i = 0
-# 	if query == None:
-# 	    for submission in r.subreddit(sub).top(syntax='lucene', time_filter=timeframe):
-#         		if i == rand_index:
-#         			buffer = submission.url
-#         			break
-#         		else:
-#         			i += 1
-#     else:
-    for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
-        if i == rand_index:
-            buffer = submission.url
-            break
-        else:
-            i += 1
+    if query == None:
+        for submission in r.subreddit(sub).top(syntax='lucene', time_filter=timeframe):
+            if i == rand_index:
+                buffer = submission.url
+                break
+            else:
+                i += 1
+    else:
+        for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
+            if i == rand_index:
+                buffer = submission.url
+                break
+            else:
+                i += 1
     return buffer
 
 def bot(sub, query, sorter, time):
@@ -50,7 +50,7 @@ def hello():
 
 @app.route('/r/<string:sub>')
 def submatch(sub):
-    query = request.args.get("query", "France")
+    query = request.args.get("query")
     timeframe = request.args.get("time", "all").lower()
     sorter = request.args.get("sort", "relevance").lower()
 
