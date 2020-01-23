@@ -23,12 +23,12 @@ def get(r, sub, query, sorter, timeframe):
 #         		else:
 #         			i += 1
 #     else:
-        for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
-        		if i == rand_index:
-        			buffer = submission.url
-        			break
-        		else:
-        			i += 1
+    for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
+        if i == rand_index:
+        	buffer = submission.url
+        	break
+        else:
+        	i += 1
 	return buffer
 
 def bot(sub, query, sorter, time):
