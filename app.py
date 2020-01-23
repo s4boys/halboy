@@ -11,11 +11,11 @@ def bot_login():
 					user_agent = "linux:LEEBAVxoj1949A:0.1 (by /u/oneSAPpyboy)")
 	return r
 	
-def get(r, sub, query, timeframe):
+def get(r, sub, query, sorter, timeframe):
 	buffer = ""
 	rand_index = randrange(10)
 	i = 0;
-	for submission in r.subreddit(sub).search(query, sort='relevance', syntax='lucene', time_filter=timeframe):
+	for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
 		if i == rand_index:
 			buffer = submission.url
 			break
@@ -23,14 +23,15 @@ def get(r, sub, query, timeframe):
 			i += 1
 	return buffer
 
-def bot(sub, query, time):
+def bot(sub, query, sorter, time):
 	handle = bot_login()
-	result = get(handle, sub, query, time)
+	result = get(handle, sub, query, sorter, time)
 	return result
 
 app = Flask(__name__)
 
 valid_timeframes = frozenset(['all', 'day', 'hour', 'month', 'week', 'year'])
+valid_sorters = frozenset(['relevance', 'hot', 'top', 'new', 'comments'])
 
 @app.route('/')
 def hello():
@@ -43,11 +44,14 @@ def hello():
 def submatch(sub):
 	query = request.args.get("query", "France")
 	timeframe = request.args.get("time", "all").lower()
+	sorter = request.args.get("sort", "relevance").lower()
 
 	if timeframe not in valid_timeframes:
 		return f'Invalid timeframe parameter: {escape(timeframe)}'
+	elif sorter not in valid_sorters:
+		return f'Invalid sort parameter: {escape(sorter)}'
 	else:
-		result = bot(sub, query, timeframe)
+		result = bot(sub, query, sorter, timeframe)
 		return f'{escape(result)}'
 
 if __name__ == "__main__":
