@@ -14,13 +14,21 @@ def bot_login():
 def get(r, sub, query, sorter, timeframe):
 	buffer = ""
 	rand_index = randrange(10)
-	i = 0;
-	for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
-		if i == rand_index:
-			buffer = submission.url
-			break
-		else:
-			i += 1
+	i = 0
+	if query == None:
+	    for submission in r.subreddit(sub).top(syntax='lucene', time_filter=timeframe):
+        		if i == rand_index:
+        			buffer = submission.url
+        			break
+        		else:
+        			i += 1
+    else:
+        for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
+        		if i == rand_index:
+        			buffer = submission.url
+        			break
+        		else:
+        			i += 1
 	return buffer
 
 def bot(sub, query, sorter, time):
