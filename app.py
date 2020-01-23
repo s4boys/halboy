@@ -13,16 +13,16 @@ def bot_login():
 	
 def get(r, sub, query, sorter, timeframe):
 	buffer = ""
-	rand_index = randrange(10)
+	rand_index = randrange(25)
 	i = 0
-	if query == None:
-	    for submission in r.subreddit(sub).top(syntax='lucene', time_filter=timeframe):
-        		if i == rand_index:
-        			buffer = submission.url
-        			break
-        		else:
-        			i += 1
-    else:
+# 	if query == None:
+# 	    for submission in r.subreddit(sub).top(syntax='lucene', time_filter=timeframe):
+#         		if i == rand_index:
+#         			buffer = submission.url
+#         			break
+#         		else:
+#         			i += 1
+#     else:
         for submission in r.subreddit(sub).search(query, sort=sorter, syntax='lucene', time_filter=timeframe):
         		if i == rand_index:
         			buffer = submission.url
