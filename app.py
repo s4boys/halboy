@@ -16,7 +16,7 @@ def get(r, sub, query, sorter, timeframe):
     rand_index = randrange(25)
     i = 0
     if query == None:
-        for submission in r.subreddit(sub).top(syntax='lucene', time_filter=timeframe):
+        for submission in r.subreddit(sub).top(time_filter=timeframe):
             if i == rand_index:
                 buffer = submission.url
                 break
