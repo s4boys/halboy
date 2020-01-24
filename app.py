@@ -18,8 +18,12 @@ def get(r, sub, query, sorter, timeframe):
     if query == None:
         for submission in r.subreddit(sub).top(time_filter=timeframe):
             if i == rand_index:
-                buffer = submission.url
-                break
+                if submission.url.endswith(".jpg") or submission.url.endswith(".png")
+                    buffer = submission.url
+                    break
+                else:
+                    rand_index += 1
+                    i += 1
             else:
                 i += 1
     else:
