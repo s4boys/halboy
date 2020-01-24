@@ -29,6 +29,7 @@ def get(r, sub, query, sorter, timeframe):
                 break
             else:
                 i += 1
+    print("your message", file=sys.stderr)
     return buffer
 
 def bot(sub, query, sorter, time):
